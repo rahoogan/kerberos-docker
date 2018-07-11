@@ -1,0 +1,26 @@
+version: '3'
+services:
+    krb-server:
+        build:
+            context: krb-server
+            dockerfile: Dockerfile
+            args:
+                - KRB_MASTER_PASS=${KRB_MASTER_PASS}
+                - KRB_REALM=${KRB_REALM}
+                - KRB_ADMIN_SERVER=${KRB_ADMIN_SERVER}
+                - KRB_KDC_SERVER=${KRB_KDC_SERVER}
+                - KRB_DOMAIN=${KRB_DOMAIN} 
+                - KRB_SOURCE_CONF=krb5.conf
+                - KRB_KDC_SOURCE_CONF=kdc.conf
+                - KRB_LOGS_MNT=${KRB_LOGS_MNT}
+                - KRB_SRC_STATE_MNT=${KRB_SRC_STATE_MNT}
+                - KRB_KEYTAB_MNT=${KRB_KEYTAB_MNT}
+        volumes:
+            - ${KRB_SRC_KEYTAB_LOC}:${KRB_KEYTAB_MNT}
+            - ${KRB_SRC_LOG}:${KRB_LOGS_MNT}
+        image: rahoogan/kerberos-server
+        container_name: krb-server
+        domainname: ${KRB_DOMAIN}
+        hostname: ${KRB_SERVER_HOSTNAME}
+        privileged: true
+        restart: always
