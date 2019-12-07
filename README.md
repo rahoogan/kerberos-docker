@@ -66,3 +66,6 @@ KRB_KDC_SERVER=
 ```bash
 docker-compose up
 ```
+
+## License
+Licensed under the [MIT License](https://github.com/rahoogan/kerberos-docker/blob/master/LICENSE)
